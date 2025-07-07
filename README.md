@@ -16,7 +16,7 @@ A simple, desktop-based application built with Python and PyQt6 to help you mana
 * **User-Friendly Interface:** Built with a clean and intuitive PyQt6 graphical user interface.
 
 ## Installation
-If you want the exutable file and start using it, you can find it [here]([url](https://github.com/AbdulazizAlhuzami/One-Piece-TCG-Organizer/releases))
+If you want the exutable file and start using it, you can find it [here](https://github.com/AbdulazizAlhuzami/One-Piece-TCG-Organizer/releases)
 
 This application requires Python and several libraries: PyQt6 for the GUI, pandas for data handling, matplotlib for plotting, and openpyxl for Excel file support.
 
