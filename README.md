@@ -25,10 +25,9 @@ This application requires Python and several libraries: PyQt6 for the GUI, panda
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/your-username/one-piece-card-tracker.git](https://github.com/your-username/one-piece-card-tracker.git)
+    git clone [https://github.com/AbdulazizAlhuzami/One-Piece-TCG-Organizer](https://github.com/AbdulazizAlhuzami/One-Piece-TCG-Organizer)
     cd one-piece-card-tracker
     ```
-    *(Remember to replace `your-username` with your actual GitHub username if you plan to host it there.)*
 
 2.  **Create a virtual environment (highly recommended):**
     ```bash
@@ -48,7 +47,6 @@ This application requires Python and several libraries: PyQt6 for the GUI, panda
     ```bash
     pip install -r requirements.txt
     ```
-    *(You will need to create a `requirements.txt` file as described in the "How to Organize" section.)*
 
 ## Usage
 
