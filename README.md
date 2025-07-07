@@ -21,7 +21,7 @@ This application requires Python and several libraries: PyQt6 for the GUI, panda
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/AbdulazizAlhuzami/One-Piece-TCG-Organizer](https://github.com/AbdulazizAlhuzami/One-Piece-TCG-Organizer)
+    git clone https://github.com/AbdulazizAlhuzami/One-Piece-TCG-Organizer
     cd one-piece-card-tracker
     ```
 
