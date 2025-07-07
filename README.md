@@ -86,17 +86,14 @@ This application requires Python and several libraries: PyQt6 for the GUI, panda
 
 ## License
 
-This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** license.
-
-This means you are free to **share** (copy and redistribute) and **adapt** (remix, transform, and build upon) the material, provided you give **attribution** to the original author and use it for **NonCommercial** purposes only.
-
-For the full license details, please refer to the `LICENSE` file in this repository or visit the official [CC BY-NC 4.0 website](https://creativecommons.org/licenses/by-nc/4.0/).
+This project is licensed under the **MIT License**.
+This means you are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, provided you include the original copyright and permission notice. This license is highly permissive and **allows for both personal and commercial use**.
+For the full license details, please refer to the `LICENSE` file in this repository.
 
 ## Contributing
 
 While active development may not be continued by the original author, contributions are welcome! If you'd like to improve the application, feel free to fork the repository, make your changes, and open a pull request.
-
-Please ensure your contributions adhere to the non-commercial terms of the CC BY-NC 4.0 license.
+Please ensure your contributions adhere to the terms of the MIT License.
 
 ## Contact
 
