@@ -1,21 +1,18 @@
-Creative Commons Attribution-NonCommercial 4.0 International Public License
 
-This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) license.
+Custom Permissive Non-Commercial License (Based on MIT)
 
-In plain language, this means you are free to:
+Copyright (c) 2025 BreadByte Studio
 
-* **Share:** Copy and redistribute the material in any medium or format.
-* **Adapt:** Remix, transform, and build upon the material.
+***Important Note on Development and Commercial Use:***
+This project was created for fun, and the original developer will not be continuing its development or improvements. This software is provided with the intent that anyone can fork it, make a better version, and do whatever they want with it, **EXCEPT FOR SELLING IT OR MAKING USERS PAY MONEY FOR IT IN ANY FORM.** Commercial use, charging for the software, or any monetization of this specific project (or derivatives thereof) is expressly prohibited.
 
-Under the following conditions:
+***Standard MIT License terms (modified for non-commercial use):***
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or otherwise use the Software, subject to the following conditions:
 
-* **Attribution (BY):** You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+*The above copyright notice and this permission notice shall be included in all*
+*copies or substantial portions of the Software.*
 
-* **NonCommercial (NC):** You may not use this material for commercial purposes. This includes, but is not limited to, selling the application, charging for its use, or incorporating it into a product or service that generates revenue.
-
-For the full legal text of the license, please refer to the official Creative Commons website:
-
-* **Deed:** https://creativecommons.org/licenses/by-nc/4.0/
-* **Legal Code:** https://creativecommons.org/licenses/by-nc/4.0/legalcode
-
-This simplified summary is provided for convenience and is not a substitute for the full legal text of the license.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
