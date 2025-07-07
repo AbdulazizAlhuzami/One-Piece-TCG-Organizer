@@ -81,7 +81,7 @@ This application requires Python and several libraries: PyQt6 for the GUI, panda
     * `Ctrl+A`: Clear the form and prepare to add a new card
     * `Delete`: Delete Selected Card(s)
     * `Double Click Row`: Edit Card
-    * `H (Hold)`: Show Quick Shortcuts (a temporary overlay of common shortcuts)
+    * `Ctrl+H (Hold)`: Show Quick Shortcuts (a temporary overlay of common shortcuts)
     * `Ctrl+H`: Show Persistent Shortcuts Dialog (a non-modal dialog with all shortcuts)
 
 ## License
