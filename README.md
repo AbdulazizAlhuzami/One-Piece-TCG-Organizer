@@ -92,8 +92,9 @@ For the full license details, please refer to the `LICENSE` file in this reposit
 
 ## Contributing
 
-While active development may not be continued by the original author, contributions are welcome! If you'd like to improve the application, feel free to fork the repository, make your changes, and open a pull request.
-Please ensure your contributions adhere to the terms of the MIT License.
+While the original author may not actively continue development, contributions are genuinely welcome! If you'd like to improve the application, please feel free to **fork the repository, make your changes, and publish them**. Be aware that the original author's involvement may cease once the project meets their personal requirements.
+
+Please ensure your contributions adhere to the terms of the **MIT License**.
 
 ## Contact
 
