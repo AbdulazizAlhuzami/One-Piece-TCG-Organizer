@@ -760,12 +760,38 @@ class StatisticsWidget(QWidget):
         chart_layout.addWidget(self.canvas_kind)
         main_layout.addLayout(chart_layout)
 
-        # Toolbar layout
+        # Create and add toolbars for each canvas
+        self.toolbar_rarity = NavigationToolbar2QT(self.canvas_rarity, self)
+        self.toolbar_color = NavigationToolbar2QT(self.canvas_color, self)
+        self.toolbar_kind = NavigationToolbar2QT(self.canvas_kind, self)
+
+        # Toolbar layout to place them under their respective graphs
         toolbar_layout = QHBoxLayout()
         toolbar_layout.addWidget(self.toolbar_rarity)
         toolbar_layout.addWidget(self.toolbar_color)
         toolbar_layout.addWidget(self.toolbar_kind)
-        main_layout.addLayout(toolbar_layout)
+        main_layout.addLayout(toolbar_layout) # Add the toolbar layout to the main layout
+
+        # Apply stylesheet to make toolbar buttons black
+        toolbar_stylesheet = """
+            NavigationToolbar2QT QToolButton {
+                background-color: #333333; /* Dark background for the button */
+                color: #FFFFFF; /* White text/icon color for contrast */
+                border: 1px solid #555555; /* Slightly lighter border */
+                border-radius: 4px;
+                padding: 4px;
+            }
+            NavigationToolbar2QT QToolButton:hover {
+                background-color: #555555; /* Darker on hover */
+            }
+            NavigationToolbar2QT QToolButton:pressed {
+                background-color: #111111; /* Even darker when pressed */
+            }
+        """
+        self.toolbar_rarity.setStyleSheet(toolbar_stylesheet)
+        self.toolbar_color.setStyleSheet(toolbar_stylesheet)
+        self.toolbar_kind.setStyleSheet(toolbar_stylesheet)
+
 
         main_layout.addStretch(1) # Push content to top
 
