@@ -1728,7 +1728,7 @@ QTabBar::tab:hover:!selected {
     background: #e4e7ed; /* Slightly darker on hover for unselected tabs */
 }
 
-/* Menu Bar and Menu Styling (for black text issue) */
+/* Menu Bar and Menu Styling */
 QMenuBar {
     background-color: #f0f2f5; /* Match window background */
     color: #333333; /* Dark text color */
