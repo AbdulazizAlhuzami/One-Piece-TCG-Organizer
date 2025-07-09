@@ -668,7 +668,7 @@ class ShortcutsDialog(QDialog):
             ("Ctrl+A", "Add Card"),
             ("Delete", "Delete Selected Card(s)"),
             ("Double Click Row", "Edit Card"),
-            ("H (Hold)", "Show Quick Shortcuts")
+            ("Ctrl+H", "Show Quick Shortcuts Window")
         ]
 
         for shortcut, desc in shortcuts:
