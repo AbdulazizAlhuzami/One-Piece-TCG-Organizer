@@ -328,8 +328,8 @@ class DuplicateCardDialog(QDialog):
     def __init__(self, existing_qty, new_qty, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Duplicate Card Detected")
-        self.setModal(True) # Make it a modal dialog
-        self.setFixedSize(200, 180) # Fixed size for simplicity and to ensure it fits
+        self.setModal(True)
+        self.setFixedSize(550, 300)
 
         layout = QVBoxLayout()
         message = QLabel(f"A card with this Card Number and Name already exists.\n"
