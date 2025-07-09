@@ -329,7 +329,7 @@ class DuplicateCardDialog(QDialog):
         super().__init__(parent)
         self.setWindowTitle("Duplicate Card Detected")
         self.setModal(True) # Make it a modal dialog
-        self.setFixedSize(350, 150) # Fixed size for simplicity
+        self.setFixedSize(350, 180) # Fixed size for simplicity and to ensure it fits
 
         layout = QVBoxLayout()
         message = QLabel(f"A card with this Card Number and Name already exists.\n"
@@ -839,7 +839,7 @@ class StatisticsWidget(QWidget):
             self.ax_rarity.bar(rarity_counts.index, rarity_counts.values, color='skyblue')
         self.ax_rarity.set_title("Cards by Rarity")
         self.ax_rarity.set_ylabel("Total Quantity")
-        self.figure_rarity.tight_layout()
+        self.figure_rarity.tight_layout() # Ensure tight layout
         self.canvas_rarity.draw()
 
         # Update Color Chart (Pie Chart)
@@ -858,7 +858,7 @@ class StatisticsWidget(QWidget):
             self.ax_color.text(0.5, 0.5, "No data", horizontalalignment='center', verticalalignment='center', transform=self.ax_color.transAxes)
             self.ax_color.set_title("Cards by Color")
 
-        self.figure_color.tight_layout()
+        self.figure_color.tight_layout() # Ensure tight layout
         self.canvas_color.draw()
 
         # Update Kind Chart
@@ -869,7 +869,7 @@ class StatisticsWidget(QWidget):
         self.ax_kind.set_title("Cards by Kind")
         self.ax_kind.set_ylabel("Total Quantity")
         self.ax_kind.tick_params(axis='x', rotation=45) # Rotate x labels for better readability
-        self.figure_kind.tight_layout()
+        self.figure_kind.tight_layout() # Ensure tight layout
         self.canvas_kind.draw()
 
 
@@ -879,6 +879,16 @@ class MainWindow(QMainWindow):
         self.data_manager = CardDataManager()
         self.setWindowTitle("One Piece Card Game Collection Tracker")
         self.setGeometry(100, 100, 1400, 900) # Initial window size (larger for tabs)
+
+        # --- Set Application and Window Icon ---
+        # For the .exe application icon (usually set during packaging, e.g., with PyInstaller)
+        # You'd typically use a .ico file for Windows, or .icns for macOS.
+        # Example for PyInstaller: pyinstaller --icon=app_logo.ico your_script.py
+
+        # For the application window icon (displayed in title bar, taskbar)
+        # Replace 'path/to/your/window_icon.png' with your actual icon file path
+        # self.setWindowIcon(QIcon('path/to/your/window_icon.png'))
+
 
         self.quick_shortcuts_dialog = ShortcutsDialog(self, is_temporary=True) # For 'H' key
         self.quick_shortcuts_dialog.hide()
@@ -961,6 +971,7 @@ class MainWindow(QMainWindow):
         table_button_layout.setSpacing(10)
 
         self.edit_button = QPushButton("Edit Selected Card")
+        # Connect to a lambda that calls with get_selected_rows_indices() to ensure it's always a list
         self.edit_button.clicked.connect(lambda: self.edit_selected_card(self.card_table_view.get_selected_rows_indices()))
         self.edit_button.setProperty("class", "editButton")
         self.edit_button.setToolTip("Populate the form with details of the selected card for editing (select only one).")
@@ -1160,6 +1171,7 @@ class MainWindow(QMainWindow):
         Populates the input form with data from the selected card for editing.
         Can be called by button (list of indices) or double-click (single index).
         """
+        # Ensure selected_indices is always a list for consistent processing
         if isinstance(row_indices_or_single_index, int):
             selected_indices = [row_indices_or_single_index]
         else:
