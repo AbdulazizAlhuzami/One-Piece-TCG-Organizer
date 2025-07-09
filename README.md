@@ -92,7 +92,9 @@ This means you are free to use, copy, modify, merge, publish, distribute, sublic
 For the full license details, please refer to the `LICENSE` file in this repository.
 
 ## Contributing
+
 Hey there!👋
+
 This app is primarily something I'm building to help manage my own One Piece card collection. Because of that, my active development might slow down or even stop once it meets my personal needs. **But that doesn't mean your help isn't welcome!** If you have ideas for improvements, find a bug, or just want to add a cool new feature, please feel **free to fork this repository, make your changes, and share them with the world!** I'm still actively uploading new versions every week for changes until it's exactly what I need, so feel free to jump in!
 
 Please ensure your contributions adhere to the terms of the **MIT License**.
