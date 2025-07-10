@@ -134,19 +134,19 @@ You can compile this Python application into a standalone executable (`.exe` on 
 
 ### Home Page
 
-![[TCG-Card-Tracker-Home.jpg]]
+![TCG-Card-Tracker-Home](https://github.com/user-attachments/assets/4e7d4693-3a4a-42fd-9e3e-d84e727be1e4)
 
 ### Statistics Page
 
-![[TCG-Card-Tracker-Statistics 1.jpg]]
+![TCG-Card-Tracker-Statistics](https://github.com/user-attachments/assets/3e5e0a78-a3d5-415b-ad6e-7551e30342c4)
 
 ### Adding/Editing Cards
 
-![[TCG-Card-Tracker-Editing.jpg]]
+![TCG-Card-Tracker-Editing](https://github.com/user-attachments/assets/b49c706b-7a3e-45c2-9e6b-994325ad37f0)
 
 ### Keyboard Shortcuts
 
-![[TCG-Card-Tracker-Shortcuts.jpg]]
+![TCG-Card-Tracker-Shortcuts](https://github.com/user-attachments/assets/265635ab-2e54-4b80-90eb-a50f4bc75395)
 
 ---
 
