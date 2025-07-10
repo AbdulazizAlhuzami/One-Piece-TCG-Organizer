@@ -70,7 +70,8 @@ class CardDataManager:
                 df = df[COLUMNS]
                 # Ensure 'Alt Art' is boolean type if it exists
                 if 'Alt Art' in df.columns:
-                    df['Alt Art'] = df['Alt Art'].astype(bool)
+                    # Convert to bool, handling various string representations
+                    df['Alt Art'] = df['Alt Art'].apply(lambda x: True if str(x).lower() == 'true' or x == 1 else (False if str(x).lower() == 'false' or x == 0 else x)).astype(bool)
                 return df
             except Exception as e:
                 print(f"Error loading data from {self.filename}: {e}")
@@ -110,6 +111,9 @@ class CardDataManager:
             for key, value in new_data.items():
                 if key in self.df.columns:
                     self.df.at[index, key] = value
+            # Ensure Alt Art remains boolean after update
+            if 'Alt Art' in self.df.columns:
+                self.df['Alt Art'] = self.df['Alt Art'].astype(bool)
             # Save data is now handled by the main window after successful operations
             return True
         return False
@@ -176,7 +180,22 @@ class CardDataManager:
     def get_card_data_by_index(self, index):
         """Retrieves all data for a card at a given index as a dictionary."""
         if 0 <= index < len(self.df):
-            return self.df.iloc[index].to_dict()
+            data = self.df.iloc[index].to_dict()
+            
+            # --- FIX: Ensure string fields are not float('nan') ---
+            string_columns = [
+                "Card Number", "Card Name", "Crew", "Color", "Foil / Normal",
+                "Rarity", "Kind", "Special Power", "Notes"
+            ]
+            for col in string_columns:
+                if col in data and pd.isna(data[col]):
+                    data[col] = "" # Convert NaN to empty string
+
+            # Ensure QTY is an int, default to 1 if NaN or problematic
+            data["QTY"] = int(data.get("QTY", 1)) if pd.notna(data.get("QTY")) else 1
+            # Ensure Alt Art is a boolean, default to False if NaN or problematic
+            data["Alt Art"] = bool(data.get("Alt Art", False)) if pd.notna(data.get("Alt Art")) else False
+            return data
         return None
 
 # --- GUI COMPONENTS ---
@@ -228,9 +247,6 @@ class PandasModel(QAbstractTableModel):
 
     def update_data(self, new_data):
         """Updates the model with a new DataFrame."""
-        # This performs a full reset, which is good for major data changes (load/save)
-        # but for filtering, directly modifying _data and emitting layoutChanged might be faster
-        # However, the current filtering re-creates the entire filtered DF, so reset is simpler.
         self.beginResetModel()
         self._data = new_data
         self.endResetModel()
@@ -329,7 +345,7 @@ class DuplicateCardDialog(QDialog):
         super().__init__(parent)
         self.setWindowTitle("Duplicate Card Detected")
         self.setModal(True)
-        self.setFixedSize(550, 300)
+        self.adjustSize() # Use adjustSize instead of setFixedSize
 
         layout = QVBoxLayout()
         message = QLabel(f"A card with this Card Number and Name already exists.\n"
@@ -346,6 +362,7 @@ class DuplicateCardDialog(QDialog):
 
         layout.addWidget(self.button_box)
         self.setLayout(layout)
+        self.adjustSize() # Added to adjust size based on content
 
         self.choice = None # Will store "add_qty", "add_new", or None
 
@@ -667,8 +684,9 @@ class ShortcutsDialog(QDialog):
             ("Ctrl+F", "Focus Search Bar"),
             ("Ctrl+A", "Add Card"),
             ("Delete", "Delete Selected Card(s)"),
-            ("Double Click Row", "Edit Card"),
-            ("Ctrl+H", "Show Quick Shortcuts Window")
+            ("F2 or Double Click Row", "Edit Card"), # Updated shortcut
+            ("H (Hold)", "Show Quick Shortcuts Window"), # Clarified hold
+            ("Ctrl+H", "Show Persistent Shortcuts Dialog") # New shortcut for persistent dialog
         ]
 
         for shortcut, desc in shortcuts:
@@ -879,16 +897,10 @@ class MainWindow(QMainWindow):
         self.data_manager = CardDataManager()
         self.setWindowTitle("One Piece Card Game Collection Tracker")
         self.setGeometry(100, 100, 1400, 900) # Initial window size (larger for tabs)
+        self.setMinimumSize(1000, 700) # Set minimum size for responsiveness
 
-        # --- Set Application and Window Icon ---
-        # For the .exe application icon (usually set during packaging, e.g., with PyInstaller)
-        # You'd typically use a .ico file for Windows, or .icns for macOS.
-        # Example for PyInstaller: pyinstaller --icon=app_logo.ico your_script.py
-
-        # For the application window icon (displayed in title bar, taskbar)
-        # Replace 'path/to/your/window_icon.png' with your actual icon file path
-        # self.setWindowIcon(QIcon('path/to/your/window_icon.png'))
-
+        # Window icon for the main window
+        self.setWindowIcon(QIcon('./assets/logo/window_icon.png'))
 
         self.quick_shortcuts_dialog = ShortcutsDialog(self, is_temporary=True) # For 'H' key
         self.quick_shortcuts_dialog.hide()
@@ -936,6 +948,7 @@ class MainWindow(QMainWindow):
         self.input_form = CardInputForm(self) # Pass self as parent for message boxes
         self.input_form.card_added.connect(self._handle_card_added)
         self.input_form.card_updated.connect(self._handle_card_updated)
+        self.input_form.form_cleared.connect(self.load_data_into_table) # Reload table on form clear
         collection_layout.addWidget(self.input_form, 2) # Give it 2/5 of the width
 
         # Vertical separator line (visual enhancement)
@@ -1046,6 +1059,18 @@ class MainWindow(QMainWindow):
         add_card_action.setStatusTip("Clear the form and prepare to add a new card")
         add_card_action.triggered.connect(self.input_form.clear_form)
         edit_menu.addAction(add_card_action)
+
+        # Fix for AttributeError: type object 'StandardKey' has no attribute 'Edit'
+        # Using F2 as a common shortcut for editing, or Ctrl+E if preferred
+        edit_selected_action = QAction("Edit Selected Card", self)
+        edit_selected_action.setShortcut(QKeySequence("F2")) # Changed from StandardKey.Edit
+        edit_selected_action.triggered.connect(lambda: self.edit_selected_card(self.card_table_view.get_selected_rows_indices()))
+        edit_menu.addAction(edit_selected_action)
+
+        delete_selected_action = QAction("&Delete Selected Card(s)", self)
+        delete_selected_action.setShortcut(QKeySequence.StandardKey.Delete)
+        delete_selected_action.triggered.connect(self.delete_selected_cards)
+        edit_menu.addAction(delete_selected_action)
 
         focus_search_action = QAction("&Focus Search", self)
         focus_search_action.setShortcut(QKeySequence("Ctrl+F"))
@@ -1181,6 +1206,9 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self, "Edit Error", "Please select exactly one card to edit.")
             self.statusBar.showMessage("Select a single card to edit.", 2000)
             return
+        
+        # Ensure the Card Collection tab is active before editing
+        self.tab_widget.setCurrentIndex(0)
 
         row_index = selected_indices[0]
         card_data = self.data_manager.get_card_data_by_index(row_index)
@@ -1320,10 +1348,10 @@ class MainWindow(QMainWindow):
         """Displays the about dialog."""
         QMessageBox.about(
             self,
-            "About One Piece Card Tracker",
+            "About",
             "This is a simple application to help you track your One Piece Card Game Collection.\n\n"
             "Developed with Python and PyQt6.\n\n"
-            "Version: 1.0.1" # Updated version number
+            "Version: 1.0.2" # Updated version number
         )
 
     def _show_persistent_shortcuts_dialog(self):
@@ -1337,20 +1365,25 @@ class MainWindow(QMainWindow):
 
     def keyPressEvent(self, event):
         """Handle key press events for global shortcuts and 'H' key for quick shortcuts dialog."""
-        if event.key() == Qt.Key.Key_H and not event.isAutoRepeat():
+        # For Ctrl+H to show persistent shortcuts (handled by menu action directly)
+        # For 'H' key (hold) to show quick shortcuts
+        if event.key() == Qt.Key.Key_H and event.modifiers() == Qt.KeyboardModifier.NoModifier and not event.isAutoRepeat():
             if self.quick_shortcuts_dialog.isHidden():
                 # Position it centrally or relative to main window
                 self.quick_shortcuts_dialog.move(self.geometry().center() - self.quick_shortcuts_dialog.rect().center())
                 self.quick_shortcuts_dialog.show()
+            event.accept() # Accept the event to prevent it from propagating further
         elif event.key() == Qt.Key.Key_Delete:
             self.delete_selected_cards()
+            event.accept() # Accept the event
         else:
             super().keyPressEvent(event)
 
     def keyReleaseEvent(self, event):
         """Handle key release events for 'H' key to hide quick shortcuts dialog."""
-        if event.key() == Qt.Key.Key_H and not event.isAutoRepeat():
+        if event.key() == Qt.Key.Key_H and event.modifiers() == Qt.KeyboardModifier.NoModifier and not event.isAutoRepeat():
             self.quick_shortcuts_dialog.hide()
+            event.accept() # Accept the event
         else:
             super().keyReleaseEvent(event)
 
@@ -1793,12 +1826,18 @@ ShortcutsDialog QLabel b {
 
 # --- MAIN APPLICATION ENTRY POINT ---
 if __name__ == "__main__":
+    plt.switch_backend('QtAgg') 
+    
     app = QApplication(sys.argv)
 
     # Apply the embedded QSS style
     app.setStyleSheet(QSS_STYLE)
     print("Embedded stylesheet applied.")
 
+    # Set application name and organization
+    app.setApplicationName("One-Piece-TCG-Organizer")
+    app.setOrganizationName("OpenSource")
+    
     window = MainWindow()
     window.show()
 
