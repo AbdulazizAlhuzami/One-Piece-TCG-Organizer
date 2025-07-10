@@ -47,7 +47,7 @@ This application requires Python and several libraries: PyQt6 for the GUI, panda
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/AbdulazizAlhuzami/One-Piece-TCG-Organizer](https://github.com/AbdulazizAlhuzami/One-Piece-TCG-Organizer)
+    git clone [https://github.com/AbdulazizAlhuzami/one-piece-card-tracker.git](https://github.com/AbdulazizAlhuzami/one-piece-card-tracker.git)
     cd one-piece-card-tracker
     ```
 
@@ -110,7 +110,7 @@ You can compile this Python application into a standalone executable (`.exe` on 
 
     For a single file executable (recommended for ease of distribution):
     ```bash
-    pyinstaller --noconfirm --onefile --windowed --icon=icon.ico main.py
+    pyinstaller --noconfirm --onefile --windowed --icon=./assets/logo/app_logo.ico main.py
     ```
     * `--noconfirm`: Overwrite existing output directory without asking.
     * `--onefile`: Creates a single executable file.
