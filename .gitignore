@@ -1,2 +1,5 @@
 .venv/
 one_piece_cards.xlsx
+dist/
+main.spec
+build/
